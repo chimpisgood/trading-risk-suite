@@ -6,8 +6,8 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # change this in production
 
 DATA_FILE = 'data.json'
-USERNAME = 'partner'
-PASSWORD = 'securepassword'
+USERNAME = 'Master'
+PASSWORD = 'BeachBuster2694!'
 
 def load_data():
     if not os.path.exists(DATA_FILE):
