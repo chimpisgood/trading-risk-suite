@@ -6,12 +6,12 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # change this in production
 
 DATA_FILE = 'data.json'
-USERNAME = 'Master'
-PASSWORD = 'BeachBuster2694!'
+USERNAME = 'partner'
+PASSWORD = 'securepassword'
 
 def load_data():
     if not os.path.exists(DATA_FILE):
-        return {"daily_loss_limit": 500, "max_contracts": 5}
+        return {"daily_loss_limit": 500, "max_contracts": 5, "intra_day_drawdown": 300}
     with open(DATA_FILE, 'r') as f:
         return json.load(f)
 
@@ -41,6 +41,7 @@ def dashboard():
     if request.method == 'POST':
         data['daily_loss_limit'] = float(request.form['daily_loss_limit'])
         data['max_contracts'] = int(request.form['max_contracts'])
+        data['intra_day_drawdown'] = float(request.form['intra_day_drawdown'])
         save_data(data)
     return render_template('dashboard.html', data=data)
 
