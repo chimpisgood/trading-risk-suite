@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | Risk Manager</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 60px; }
+    form { display: inline-block; text-align: left; }
+    input[type="number"] { width: 100px; }
+  </style>
+</head>
+<body>
+  <h2>Risk Settings Dashboard</h2>
+  <form method="post">
+    <label>Max Daily Loss ($):</label><br>
+    <input type="number" name="daily_loss_limit" step="0.01" value="{{ data.daily_loss_limit }}"><br><br>
+    
+    <label>Max Contracts Allowed:</label><br>
+    <input type="number" name="max_contracts" step="1" value="{{ data.max_contracts }}"><br><br>
+    
+    <button type="submit">Update Settings</button>
+  </form>
+
+  <br><br>
+  <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
