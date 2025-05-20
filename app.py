@@ -50,6 +50,25 @@ def check_risk():
     data = load_data()
     return jsonify(data)
 
+@app.route('/api/validate-trade', methods=['POST'])
+def validate_trade():
+    data = load_data()
+    req = request.get_json()
+
+    # Expected: {"contracts": 3, "loss_today": 250, "drawdown": 180}
+    contracts = req.get('contracts', 0)
+    loss_today = req.get('loss_today', 0)
+    drawdown = req.get('drawdown', 0)
+
+    if contracts > data['max_contracts']:
+        return jsonify({"allowed": False, "reason": "Contract size exceeds limit"})
+    if loss_today > data['daily_loss_limit']:
+        return jsonify({"allowed": False, "reason": "Daily loss limit exceeded"})
+    if drawdown > data['intra_day_drawdown']:
+        return jsonify({"allowed": False, "reason": "Intra-day drawdown limit exceeded"})
+
+    return jsonify({"allowed": True})
+
 @app.route('/logout')
 def logout():
     session.clear()
